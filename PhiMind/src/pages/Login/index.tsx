@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { 
   Container, 
   Title, 
@@ -11,6 +13,9 @@ import {
 } from './styles';
 
 const TelaDeLogin = () => {
+  // Inicializar a navegação
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -23,11 +28,15 @@ const TelaDeLogin = () => {
     // Lógica de autenticação
     console.log('Tentativa de login:', { email });
     Alert.alert('Bem-vindo', `Logado com sucesso: ${email}`);
+    
+    // navegar para uma Home após o login:
+    // navigation.navigate('Home' as never);
   };
 
   const handleNavigateToRegister = () => {
-    // Aqui você colocará a navegação real posteriormente
-    console.log('Navegar para tela de cadastro');
+    // Executar a navegação para a tela 'Cadastro'
+    // O 'as never' é usado para evitar erro de tipagem rápido no TypeScript
+    navigation.navigate('Cadastro' as never);
   };
 
   return (

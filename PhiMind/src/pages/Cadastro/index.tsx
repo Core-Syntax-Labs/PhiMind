@@ -9,12 +9,12 @@ import {
 } from './styles';
 
 const TelaDeCadastro = () => {
-  // 1. Hooks de Estado
+  // Hooks de Estado
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  // 2. Função de cadastro
+  //  Função de cadastro
   const handleCadastro = () => {
     if (!nome || !email || !senha) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
@@ -38,7 +38,7 @@ const TelaDeCadastro = () => {
         placeholder="Nome Completo"
         value={nome}
         onChangeText={setNome}
-        placeholderTextColor="#999" // Boa prática adicionar cor ao placeholder
+        placeholderTextColor="#999" 
       />
 
       {/* Input E-mail */}

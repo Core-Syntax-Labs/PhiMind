@@ -43,7 +43,6 @@ export const ButtonText = styled.Text`
   font-weight: bold;
 `;
 
-// Novos estilos específicos para o Login (Link de criar conta)
 export const LinkButton = styled.TouchableOpacity`
   margin-top: 20px;
   padding: 10px;
