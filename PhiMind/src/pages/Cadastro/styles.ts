@@ -1,45 +1,44 @@
-import {StyleSheet} from 'react-native';
+import styled from 'styled-components/native';
 
+export const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+`;
 
-export const styles = StyleSheet.create({
+export const Title = styled.Text`
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+`;
 
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5', // Cor de fundo suave
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    color: '#333',
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    marginBottom: 15,
-  },
-  button: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#6200EE', // Cor primária
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+export const Input = styled.TextInput`
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0 15px; 
+  font-size: 16px;
+  border-width: 1px;
+  border-color: #ddd;
+  margin-bottom: 15px;
+`;
 
-});
+export const Button = styled.TouchableOpacity`
+  width: 100%;
+  height: 50px;
+  background-color: #6200EE;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const ButtonText = styled.Text`
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+`;

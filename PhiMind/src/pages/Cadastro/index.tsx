@@ -1,78 +1,71 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert // Usado para exibir mensagens de cadastro
-} from 'react-native';
-
-import { styles } from './styles';
+import { Alert } from 'react-native';
+import { 
+  Container, 
+  Title, 
+  Input, 
+  Button, 
+  ButtonText 
+} from './styles';
 
 const TelaDeCadastro = () => {
-  // 1. Hooks de Estado para os campos
+  // 1. Hooks de Estado
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  // 2. Função para lidar com o cadastro
+  // 2. Função de cadastro
   const handleCadastro = () => {
     if (!nome || !email || !senha) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       return;
     }
 
-    // Simulação da lógica de cadastro
     console.log('Dados para cadastro:', { nome, email, senha });
     Alert.alert('Sucesso', `Usuário ${nome} cadastrado com o e-mail: ${email}`);
 
-    // Limpar os campos após o cadastro
     setNome('');
     setEmail('');
     setSenha('');
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Crie sua conta</Text>
+    <Container>
+      <Title>Crie sua conta</Title>
 
       {/* Input Nome */}
-      <TextInput
-        style={styles.input}
+      <Input
         placeholder="Nome Completo"
         value={nome}
         onChangeText={setNome}
+        placeholderTextColor="#999" // Boa prática adicionar cor ao placeholder
       />
 
       {/* Input E-mail */}
-      <TextInput
-        style={styles.input}
+      <Input
         placeholder="E-mail"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address" // Teclado otimizado para e-mail
-        autoCapitalize="none" // Desabilita a capitalização automática
+        keyboardType="email-address"
+        autoCapitalize="none"
+        placeholderTextColor="#999"
       />
 
       {/* Input Senha */}
-      <TextInput
-        style={styles.input}
+      <Input
         placeholder="Senha"
         value={senha}
         onChangeText={setSenha}
-        secureTextEntry // Oculta o texto digitado
+        secureTextEntry
+        placeholderTextColor="#999"
       />
 
       {/* Botão de Cadastro */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleCadastro}
-      >
-        <Text style={styles.buttonText}>Cadastrar</Text>
-      </TouchableOpacity>
-    </View>
+      <Button onPress={handleCadastro} activeOpacity={0.7}>
+        <ButtonText>Cadastrar</ButtonText>
+      </Button>
+    </Container>
   );
 };
 
-
-export default TelaDeCadastro
+export default TelaDeCadastro;
