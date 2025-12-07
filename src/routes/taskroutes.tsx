@@ -1,14 +1,23 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// Importação das suas páginas
 import TelaDeCadastro from '../pages/Cadastro';
 import TelaDeLogin from '../pages/Login';
+import Home from '../pages/Home';
+
+
 const Stack = createNativeStackNavigator();
 
 export default function TaskRoutes() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Home">
       {/* A primeira tela da lista*/}
+
+      <Stack.Screen 
+        name="Home" 
+        component={Home} 
+        options={{ headerShown: false }} 
+      />
+      
       <Stack.Screen 
         name="Login" 
         component={TelaDeLogin} 
