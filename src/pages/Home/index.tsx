@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
@@ -17,7 +17,7 @@ import {
   SecondaryButtonText 
 } from './styles';
 
-// Fallback: Frases locais caso a API falhe ou demore
+// Fallback: Frases locais importantes caso a API falhe
 const localQuotes = [
   { text: "A vida não examinada não vale a pena ser vivida.", author: "Sócrates" },
   { text: "O que não provoca minha morte faz com que eu fique mais forte.", author: "Nietzsche" },
@@ -25,37 +25,31 @@ const localQuotes = [
   { text: "A felicidade depende de nós mesmos.", author: "Aristóteles" }
 ];
 
-// Tipagem da resposta da API (ZenQuotes)
-interface QuoteData {
-  q: string; // Quote text
-  a: string; // Author
-}
-
 const Home = () => {
   const navigation = useNavigation();
   
-  // Estado para armazenar a frase atual
   const [quote, setQuote] = useState({ text: '', author: '' });
-  // Estado de carregamento
   const [loading, setLoading] = useState(true);
 
-  // Função para buscar a frase
   async function fetchQuote() {
     try {
       setLoading(true);
-      // Usando ZenQuotes (Proxy necessário em dev as vezes, usar https://api.quotable.io/random para testes mais fáceis)
-      // usado o Quotable aqui pois ela tem menos bloqueio de CORS em desenvolvimento
-      const response = await fetch('https://api.quotable.io/random?tags=philosophy,wisdom');
+      
+      // API Stoic Quotes
+      const response = await fetch('https://stoic-quotes.com/api/quote'); 
       const data = await response.json();
 
+      console.log("Stoic API Response:", data); // Conferir no terminal
+
       setQuote({
-        text: data.content, // Na API Quotable o texto vem em 'content'
+        text: data.text, 
         author: data.author
       });
 
     } catch (error) {
-      console.log("Erro ao buscar frase, usando local:", error);
-      // Se der erro, pega uma aleatória do banco local
+      console.log("Erro na API Stoic, usando local:", error);
+      
+      // Fallback
       const randomLocal = localQuotes[Math.floor(Math.random() * localQuotes.length)];
       setQuote(randomLocal);
     } finally {
@@ -63,7 +57,6 @@ const Home = () => {
     }
   }
 
-  // Chama a API assim que a tela abre
   useEffect(() => {
     fetchQuote();
   }, []);
@@ -85,11 +78,10 @@ const Home = () => {
 
       <QuoteContainer>
         {loading ? (
-          // Mostra um spinner rodando enquanto carrega
           <ActivityIndicator size="large" color="#6200EE" />
         ) : (
           <>
-            {/* O texto pode vir em inglês da API. Futuramente podemos adicionar tradução */}
+            {/* Exibe a frase carregada */}
             <QuoteText>"{quote.text}"</QuoteText>
             <QuoteAuthor>— {quote.author}</QuoteAuthor>
           </>
