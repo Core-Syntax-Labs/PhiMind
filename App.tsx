@@ -43,7 +43,8 @@ export default function App() {
         flex: 1, 
         backgroundColor: '#ffffff', 
         justifyContent: 'center', 
-        alignItems: 'center' }}>
+        alignItems: 'center',
+        gap: 20 }}>
         <Text style={styles.splashTitle}>phiMind.</Text>
         <ActivityIndicator 
           size="large" color="#6200EE"/>
