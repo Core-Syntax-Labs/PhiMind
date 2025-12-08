@@ -1,103 +1,108 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import { 
-  Container, 
-  LogoTitle, 
-  Tagline,
-  QuoteContainer,
-  QuoteText,
-  QuoteAuthor,
-  ButtonContainer, 
-  PrimaryButton, 
-  PrimaryButtonText, 
-  SecondaryButton, 
-  SecondaryButtonText 
-} from './styles';
+import { useAuth } from "../../context/AuthContext";
+import { api } from "../../database/api";
 
-// Fallback: Frases locais importantes caso a API falhe
-const localQuotes = [
-  { text: "A vida não examinada não vale a pena ser vivida.", author: "Sócrates" },
-  { text: "O que não provoca minha morte faz com que eu fique mais forte.", author: "Nietzsche" },
-  { text: "Penso, logo existo.", author: "Descartes" },
-  { text: "A felicidade depende de nós mesmos.", author: "Aristóteles" }
-];
+import {
+  Container,
+  Title,
+  QuoteCard,
+  QuotePT,
+  QuoteEN,
+  Author,
+  Source,
+  Button,
+  ButtonText,
+  FavoriteButton,
+  FavoriteText,
+  GoFavorites,
+  GoFavoritesText,
+} from "./styles";
+
+type QuoteResponse = {
+  text_en: string;
+  text_pt: string;
+  author: string;
+  source: string;
+};
 
 const QuoteScreen = () => {
   const navigation = useNavigation();
-  
-  const [quote, setQuote] = useState({ text: '', author: '' });
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
-  async function fetchQuote() {
+  const [quote, setQuote] = useState<QuoteResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [savingFavorite, setSavingFavorite] = useState(false);
+
+  const fetchQuote = async () => {
     try {
       setLoading(true);
-      
-      // API Stoic Quotes
-      const response = await fetch('https://stoic-quotes.com/api/quote'); 
-      const data = await response.json();
-
-      console.log("Stoic API Response:", data); // Conferir no terminal
-
-      setQuote({
-        text: data.text, 
-        author: data.author
-      });
-
+      const { data } = await api.get<QuoteResponse>("/quotes/random");
+      setQuote(data);
     } catch (error) {
-      console.log("Erro na API Stoic, usando local:", error);
-      
-      // Fallback
-      const randomLocal = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-      setQuote(randomLocal);
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível carregar uma citação.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchQuote();
   }, []);
 
-  function handleNavigateToLogin() {
-    navigation.navigate('Login' as never);
-  }
+  const saveFavorite = async () => {
+    if (!quote || !user) return;
 
-  function handleNavigateToRegister() {
-    navigation.navigate('Cadastro' as never);
-  }
+    try {
+      setSavingFavorite(true);
+
+      await api.post("/favorites", {
+        text: quote.text_pt || quote.text_en,
+        author: quote.author,
+        userId: user.id,
+      });
+
+      Alert.alert("Sucesso", "Citação favoritada!");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Falha ao salvar favorito.");
+    } finally {
+      setSavingFavorite(false);
+    }
+  };
 
   return (
     <Container>
-      <StatusBar style="dark" />
-      
-      <LogoTitle>phiMind.</LogoTitle>
-      <Tagline>Explore as mentes mais brilhantes do mundo. Descubra frases de filósofos famosos todos os dias.</Tagline>
+      <Title>Sua citação de hoje</Title>
 
-      <QuoteContainer>
-        {loading ? (
-          <ActivityIndicator size="large" color="#6200EE" />
-        ) : (
-          <>
-            {/* Exibe a frase carregada */}
-            <QuoteText>"{quote.text}"</QuoteText>
-            <QuoteAuthor>— {quote.author}</QuoteAuthor>
-          </>
-        )}
-      </QuoteContainer>
+      {loading && <ActivityIndicator size="large" color="#bb86fc" />}
 
-      <ButtonContainer>
-        <PrimaryButton onPress={handleNavigateToLogin} activeOpacity={0.8}>
-          <PrimaryButtonText>ENTRAR</PrimaryButtonText>
-        </PrimaryButton>
+      {!loading && quote && (
+        <QuoteCard>
+          <QuotePT>{quote.text_pt}</QuotePT>
+          <QuoteEN>{quote.text_en}</QuoteEN>
+          <Author>— {quote.author}</Author>
+          <Source>Fonte: {quote.source}</Source>
+        </QuoteCard>
+      )}
 
-        <SecondaryButton onPress={handleNavigateToRegister} activeOpacity={0.6}>
-          <SecondaryButtonText>Cadastre-se para favoritar suas frases favoritas</SecondaryButtonText>
-        </SecondaryButton>
-      </ButtonContainer>
+      {/* Gerar nova */}
+      <Button onPress={fetchQuote} disabled={loading}>
+        <ButtonText>{loading ? "Carregando..." : "Nova citação"}</ButtonText>
+      </Button>
 
+      {/* Favoritar */}
+      <FavoriteButton onPress={saveFavorite} disabled={savingFavorite || !quote}>
+        <FavoriteText>{savingFavorite ? "Salvando..." : "Adicionar aos favoritos"}</FavoriteText>
+      </FavoriteButton>
+
+      {/* Link para favorites */}
+      <GoFavorites onPress={() => navigation.navigate("Favorites" as never)}>
+        <GoFavoritesText>Ver favoritos</GoFavoritesText>
+      </GoFavorites>
     </Container>
   );
 };

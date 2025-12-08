@@ -1,91 +1,89 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #FAFAFA; /* Um branco levemente off-white é mais agradável para leitura */
-  justify-content: space-between; /* Distribui os elementos na tela */
-  align-items: center;
-  padding: 60px 24px;
+  background-color: #050516;
+  padding: 80px 24px 0 24px;
 `;
 
-export const LogoTitle = styled.Text`
-  font-size: 42px;
-  font-weight: 800; /* Extra bold */
-  color: #6200EE;
-  letter-spacing: -1px;
-`;
-
-export const Tagline = styled.Text`
-  font-size: 16px;
-  color: #757575;
-  margin-top: -5px;
-  margin-bottom: 20px;
-  text-align: center;
-`;
-
-export const QuoteContainer = styled.View`
-  width: 100%;
-  padding: 20px;
-  border-left-width: 4px;
-  border-left-color: #6200EE;
-  background-color: #F0F0F0;
-  border-radius: 4px;
-  margin-bottom: 40px;
-`;
-
-export const QuoteText = styled.Text`
-  font-size: 20px;
-  font-style: italic;
-  color: #333;
-  line-height: 28px;
-  font-family: 'PlayfairDisplay_400Regular';
-`;
-
-export const QuoteAuthor = styled.Text`
-  font-size: 14px;
-  font-weight: bold;
-  color: #6200EE;
-  text-align: right;
-  margin-top: 10px;
-`;
-
-export const ButtonContainer = styled.View`
-  width: 100%;
-  gap: 16px;
-`;
-
-export const PrimaryButton = styled.TouchableOpacity`
-  width: 100%;
-  height: 56px;
-  background-color: #6200EE;
-  border-radius: 12px;
-  justify-content: center;
-  align-items: center;
-  shadow-color: #6200EE;
-  shadow-offset: 0px 4px;
-  shadow-opacity: 0.3;
-  shadow-radius: 4px;
-  elevation: 5;
-`;
-
-export const PrimaryButtonText = styled.Text`
+export const Title = styled.Text`
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 20px;
+  font-family: Montserrat_700Bold;
+  margin-bottom: 16px;
 `;
 
-export const SecondaryButton = styled.TouchableOpacity`
-  width: 100%;
-  height: 56px;
-  background-color: transparent;
-  justify-content: center;
+export const QuoteCard = styled.View`
+  background-color: #12122a;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+`;
+
+export const QuotePT = styled.Text`
+  color: #ede7f6;
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 8px;
+`;
+
+export const QuoteEN = styled.Text`
+  color: #9fa8da;
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 4px;
+`;
+
+export const Author = styled.Text`
+  color: #bb86fc;
+  font-size: 14px;
+  text-align: right;
+  margin-top: 16px;
+`;
+
+export const Source = styled.Text`
+  color: #666;
+  font-size: 11px;
+  text-align: right;
+  margin-top: 4px;
+`;
+
+export const Button = styled.TouchableOpacity`
+  background-color: #3700b3;
+  border-radius: 999px;
+  padding: 14px;
   align-items: center;
+  margin-bottom: 12px;
 `;
 
-export const SecondaryButtonText = styled.Text`
-  color: #6200EE;
+export const ButtonText = styled.Text`
+  color: white;
   font-size: 16px;
-  font-weight: 600;
+  font-family: Montserrat_700Bold;
+`;
+
+export const FavoriteButton = styled.TouchableOpacity<{ disabled?: boolean }>`
+  background-color: #bb86fc;
+  border-radius: 999px;
+  padding: 14px;
+  align-items: center;
+  opacity: ${(props: any) => (props.disabled ? 0.6 : 1)};
+`;
+
+export const FavoriteText = styled.Text`
+  color: #050516;
+  font-size: 16px;
+  font-family: Montserrat_700Bold;
+`;
+
+export const GoFavorites = styled.TouchableOpacity`
+  margin-top: 20px;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const GoFavoritesText = styled.Text`
+  color: #bb86fc;
+  font-size: 15px;
+  text-decoration: underline;
 `;

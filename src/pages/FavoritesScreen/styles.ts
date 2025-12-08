@@ -1,91 +1,47 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #FAFAFA; /* Um branco levemente off-white é mais agradável para leitura */
-  justify-content: space-between; /* Distribui os elementos na tela */
-  align-items: center;
-  padding: 60px 24px;
+  background-color: #050516;
+  padding: 80px 24px 0 24px;
 `;
 
-export const LogoTitle = styled.Text`
-  font-size: 42px;
-  font-weight: 800; /* Extra bold */
-  color: #6200EE;
-  letter-spacing: -1px;
-`;
-
-export const Tagline = styled.Text`
-  font-size: 16px;
-  color: #757575;
-  margin-top: -5px;
-  margin-bottom: 20px;
-  text-align: center;
-`;
-
-export const QuoteContainer = styled.View`
-  width: 100%;
-  padding: 20px;
-  border-left-width: 4px;
-  border-left-color: #6200EE;
-  background-color: #F0F0F0;
-  border-radius: 4px;
-  margin-bottom: 40px;
-`;
-
-export const QuoteText = styled.Text`
-  font-size: 20px;
-  font-style: italic;
-  color: #333;
-  line-height: 28px;
-  font-family: 'PlayfairDisplay_400Regular';
-`;
-
-export const QuoteAuthor = styled.Text`
-  font-size: 14px;
-  font-weight: bold;
-  color: #6200EE;
-  text-align: right;
-  margin-top: 10px;
-`;
-
-export const ButtonContainer = styled.View`
-  width: 100%;
-  gap: 16px;
-`;
-
-export const PrimaryButton = styled.TouchableOpacity`
-  width: 100%;
-  height: 56px;
-  background-color: #6200EE;
-  border-radius: 12px;
-  justify-content: center;
-  align-items: center;
-  shadow-color: #6200EE;
-  shadow-offset: 0px 4px;
-  shadow-opacity: 0.3;
-  shadow-radius: 4px;
-  elevation: 5;
-`;
-
-export const PrimaryButtonText = styled.Text`
+export const Title = styled.Text`
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 20px;
+  font-family: Montserrat_700Bold;
+  margin-bottom: 16px;
 `;
 
-export const SecondaryButton = styled.TouchableOpacity`
-  width: 100%;
-  height: 56px;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
+export const Card = styled.View`
+  background-color: #12122a;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
 `;
 
-export const SecondaryButtonText = styled.Text`
-  color: #6200EE;
-  font-size: 16px;
-  font-weight: 600;
+export const TextPT = styled.Text`
+  color: #ede7f6;
+  font-size: 14px;
+  margin-bottom: 8px;
+`;
+
+export const Author = styled.Text`
+  color: #bb86fc;
+  font-size: 13px;
+  text-align: right;
+`;
+
+export const RemoveButton = styled.TouchableOpacity`
+  margin-top: 10px;
+  align-self: flex-end;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border-width: 1px;
+  border-color: #cf6679;
+`;
+
+export const RemoveText = styled.Text`
+  color: #cf6679;
+  font-size: 12px;
 `;

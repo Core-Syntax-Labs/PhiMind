@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-// 👇 IMPORT IMPORTANTE: cliente HTTP que fala com o backend
+//cliente HTTP que fala com o backend
 import { api } from '../../database/api';
 
 import { 
@@ -59,14 +59,14 @@ const TelaDeCadastro = () => {
     resolver: yupResolver(schema),
   });
 
-  // 🔴 AQUI É ONDE O FRONT FALA COM O BACK
+  //AQUI É ONDE O FRONT FALA COM O BACK
   const onValidSubmit = async (data: FormData) => {
     try {
       setLoading(true);
 
       // 1. Mapeia os campos do formulário -> payload da API
       const payload = {
-        name: data.nome,      // 👈 bate com o que o backend espera
+        name: data.nome,
         email: data.email,
         password: data.senha,
       };
