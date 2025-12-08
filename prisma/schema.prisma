@@ -2,29 +2,28 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User{
-  id_user    Int         @id @default(autoincrement())
+  id_user    Int          @id @default(autoincrement())
   name       String
-  email      String
+  email      String       @unique
   password   String
-  datecreate DateTime       @default(now())
-  dateupdate DateTime       @updatedAt
+  datecreate DateTime     @default(now())
+  dateupdate DateTime     @updatedAt
   favorites  Favorite[]
 }
 model Favorite{
-  id_favorite    Int        @id @default(autoincrement())
+  id_favorite    Int       @id @default(autoincrement())
   text           String
   author         String
-  user           User       @relation(fields: [userId], references: [id_user])
+  user           User      @relation(fields: [userId], references: [id_user])
   userId         Int
 }
-
 
