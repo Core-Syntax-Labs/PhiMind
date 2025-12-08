@@ -5,6 +5,21 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'; 
 
+
+
+import { 
+  useFonts, 
+  Montserrat_400Regular, 
+  Montserrat_700Bold,
+  Montserrat_900Black 
+} from '@expo-google-fonts/montserrat';
+
+import { 
+  LobsterTwo_400Regular, 
+  LobsterTwo_700Bold,
+  LobsterTwo_400Regular_Italic 
+} from '@expo-google-fonts/lobster-two';
+
 // Tenta impedir o hide automático. 
 // Se isso falhar, o app abre direto.
 SplashScreen.preventAutoHideAsync().catch(console.warn);
@@ -30,6 +45,20 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
+
+    const [fontsLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_700Bold,
+    LobsterTwo_400Regular,
+    LobsterTwo_700Bold,
+    Montserrat_900Black,
+    LobsterTwo_400Regular_Italic
+  });
+
+    if (!fontsLoaded) {
+      return null; // ou sua Splash Screen manual
+    }
+
     if (appIsReady) {
       console.log("Escondendo Splash Screen...");
       await SplashScreen.hideAsync();
@@ -72,8 +101,11 @@ const styles = StyleSheet.create({
     gap: 20 
   },
   splashTitle: {
-    fontSize: 40, 
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat_900Black',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)', 
+    textShadowOffset: { width: 2, height: 2 }, 
+    textShadowRadius: 4, 
+    fontSize: 40,
     color: '#6200EE', 
   },
   splashSubtitle: {

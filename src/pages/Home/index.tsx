@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
 import { 
   Container, 
+  HeroImage, 
+  ContentWrapper, 
   LogoTitle, 
-  Tagline,
   QuoteContainer,
   QuoteText,
   QuoteAuthor,
@@ -14,10 +14,16 @@ import {
   PrimaryButton, 
   PrimaryButtonText, 
   SecondaryButton, 
-  SecondaryButtonText 
+  SecondaryButtonText, 
+  LogoTitleTwo,
+  LoadingSpinner, 
+  ButtonIcon,
+  QuoteIcon,          
+  SecondaryButtonIcon 
 } from './styles';
 
-// Fallback: Frases locais importantes caso a API falhe
+const heroImg = require('../../../assets/banner.png');
+
 const localQuotes = [
   { text: "A vida não examinada não vale a pena ser vivida.", author: "Sócrates" },
   { text: "O que não provoca minha morte faz com que eu fique mais forte.", author: "Nietzsche" },
@@ -27,29 +33,16 @@ const localQuotes = [
 
 const Home = () => {
   const navigation = useNavigation();
-  
   const [quote, setQuote] = useState({ text: '', author: '' });
   const [loading, setLoading] = useState(true);
 
   async function fetchQuote() {
     try {
       setLoading(true);
-      
-      // API Stoic Quotes
       const response = await fetch('https://stoic-quotes.com/api/quote'); 
       const data = await response.json();
-
-      console.log("Stoic API Response:", data); // Conferir no terminal
-
-      setQuote({
-        text: data.text, 
-        author: data.author
-      });
-
+      setQuote({ text: data.text, author: data.author });
     } catch (error) {
-      console.log("Erro na API Stoic, usando local:", error);
-      
-      // Fallback
       const randomLocal = localQuotes[Math.floor(Math.random() * localQuotes.length)];
       setQuote(randomLocal);
     } finally {
@@ -73,28 +66,45 @@ const Home = () => {
     <Container>
       <StatusBar style="dark" />
       
-      <LogoTitle>phiMind.</LogoTitle>
-      <Tagline>Explore as mentes mais brilhantes do mundo. Descubra frases de filósofos famosos todos os dias.</Tagline>
+      <HeroImage source={heroImg} resizeMode="cover" />
 
-      <QuoteContainer>
-        {loading ? (
-          <ActivityIndicator size="large" color="#6200EE" />
-        ) : (
-          <>
-            {/* Exibe a frase carregada */}
-            <QuoteText>"{quote.text}"</QuoteText>
-            <QuoteAuthor>— {quote.author}</QuoteAuthor>
-          </>
-        )}
-      </QuoteContainer>
+      <ContentWrapper>
+        <LogoTitle>phiMind.</LogoTitle>
+        <LogoTitleTwo>Descubra frases filosoficas diariamente</LogoTitleTwo>
+        
+        <QuoteContainer>
+          {loading ? (
+            <LoadingSpinner />
+          ) : (
+            <>
+              <QuoteIcon name="quote-left" size={24} color="#6200EE" />
+              
+              <QuoteText>"{quote.text}"</QuoteText>
+              <QuoteAuthor>— {quote.author}</QuoteAuthor>
+            </>
+          )}
+        </QuoteContainer>
+      </ContentWrapper>
 
       <ButtonContainer>
-        <PrimaryButton onPress={handleNavigateToLogin} activeOpacity={0.8}>
-          <PrimaryButtonText>ENTRAR</PrimaryButtonText>
+        <PrimaryButton onPress={handleNavigateToRegister} activeOpacity={0.8}>
+          <PrimaryButtonText>Vamos Começar</PrimaryButtonText>
+          
+          <ButtonIcon 
+            name="arrow-right" 
+            size={20} 
+            color="#fff" 
+          />
         </PrimaryButton>
 
-        <SecondaryButton onPress={handleNavigateToRegister} activeOpacity={0.6}>
-          <SecondaryButtonText>Cadastre-se para favoritar suas frases favoritas</SecondaryButtonText>
+        <SecondaryButton onPress={handleNavigateToLogin} activeOpacity={0.6}>
+          <SecondaryButtonText>Já tenho uma conta</SecondaryButtonText>
+          
+          <SecondaryButtonIcon 
+            name="log-in" 
+            size={18} 
+            color="#1A1A1A" 
+          />
         </SecondaryButton>
       </ButtonContainer>
 

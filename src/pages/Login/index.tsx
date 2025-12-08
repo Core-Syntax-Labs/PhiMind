@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons'; 
 
 import { 
   Container, 
@@ -9,11 +10,11 @@ import {
   Button, 
   ButtonText,
   LinkButton,
-  LinkText
+  LinkText,
+  InputContainer
 } from './styles';
 
 const TelaDeLogin = () => {
-  // Inicializar a navegação
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
@@ -21,50 +22,61 @@ const TelaDeLogin = () => {
 
   const handleLogin = () => {
     if (!email || !senha) {
-      Alert.alert('Atenção', 'Informe seu e-mail e senha para entrar.');
+      Alert.alert('Atenção', 'Preencha todos os campos.');
       return;
     }
-
-    // Lógica de autenticação
-    console.log('Tentativa de login:', { email });
-    Alert.alert('Bem-vindo', `Logado com sucesso: ${email}`);
-    
-    // navegar para uma Home após o login:
-    // navigation.navigate('Home' as never);
+    console.log('Login com:', { email });
+    Alert.alert('Bem-vindo', `Logado com sucesso!`);
   };
 
   const handleNavigateToRegister = () => {
-    // Executar a navegação para a tela 'Cadastro'
-    // O 'as never' é usado para evitar erro de tipagem rápido no TypeScript
     navigation.navigate('Cadastro' as never);
   };
 
   return (
     <Container>
-      <Title>Acesse sua conta</Title>
+      <Title>Entre agora</Title>
 
-      <Input
-        placeholder="E-mail"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        placeholderTextColor="#999"
-      />
+      {/* Input de E-mail */}
+      <InputContainer>
+        {/* Ícone vem PRIMEIRO agora */}
+        <Feather 
+          name="mail" 
+          size={20} 
+          color="#999" 
+          style={{ marginLeft: 15 }} // Margem para afastar da borda esquerda
+        />
+        <Input
+          placeholder="E-mail"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          placeholderTextColor="#999"
+        />
+      </InputContainer>
 
-      <Input
-        placeholder="Senha"
-        value={senha}
-        onChangeText={setSenha}
-        secureTextEntry
-        placeholderTextColor="#999"
-      />
+      {/* Input de Senha  */}
+      <InputContainer>
+        <Feather 
+          name="lock" 
+          size={20} 
+          color="#999" 
+          style={{ marginLeft: 15 }} 
+        />
+        <Input
+          placeholder="Senha"
+          value={senha}
+          onChangeText={setSenha}
+          placeholderTextColor="#999"
+          secureTextEntry={true} // Sempre oculto, sem botão de olho
+        />
+      </InputContainer>
 
-      <Button onPress={handleLogin} activeOpacity={0.7}>
+      <Button onPress={handleLogin} activeOpacity={0.8}>
         <ButtonText>Entrar</ButtonText>
       </Button>
 
-      {/* Botão para ir para a tela de Cadastro */}
       <LinkButton onPress={handleNavigateToRegister}>
         <LinkText>Não tem uma conta? Cadastre-se</LinkText>
       </LinkButton>
