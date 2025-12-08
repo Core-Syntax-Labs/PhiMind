@@ -5,7 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'; 
 
-
+import { AuthProvider } from './src/context/AuthContext';
+import { FavoritesProvider } from './src/context/FavoriteContext';
 
 import { 
   useFonts, 
@@ -20,18 +21,25 @@ import {
   LobsterTwo_400Regular_Italic 
 } from '@expo-google-fonts/lobster-two';
 
-// Tenta impedir o hide automático. 
-// Se isso falhar, o app abre direto.
+// Impede o hide automático
 SplashScreen.preventAutoHideAsync().catch(console.warn);
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
 
+  const [fontsLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_700Bold,
+    LobsterTwo_400Regular,
+    LobsterTwo_700Bold,
+    Montserrat_900Black,
+    LobsterTwo_400Regular_Italic
+  });
+
   useEffect(() => {
     async function prepare() {
       try {
         console.log("Iniciando carregamento...");
-        // FORÇANDO 1 segundo de espera
         await new Promise(resolve => setTimeout(resolve, 1000));
       } catch (e) {
         console.warn(e);
@@ -45,38 +53,21 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-
-    const [fontsLoaded] = useFonts({
-    Montserrat_400Regular,
-    Montserrat_700Bold,
-    LobsterTwo_400Regular,
-    LobsterTwo_700Bold,
-    Montserrat_900Black,
-    LobsterTwo_400Regular_Italic
-  });
-
-    if (!fontsLoaded) {
-      return null; // ou sua Splash Screen manual
-    }
-
-    if (appIsReady) {
+    // Só esconde a splash quando:
+    // - fontsLoaded for true
+    // - appIsReady for true
+    if (fontsLoaded && appIsReady) {
       console.log("Escondendo Splash Screen...");
       await SplashScreen.hideAsync();
     }
-  }, [appIsReady]);
+  }, [appIsReady, fontsLoaded]);
 
-  if (!appIsReady) {
-    
+  // Enquanto fontes ou app não estiverem prontos → Splash custom
+  if (!fontsLoaded || !appIsReady) {
     return (
-      <View style={{ 
-        flex: 1, 
-        backgroundColor: '#ffffff', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        gap: 20 }}>
+      <View style={styles.splashContainer}>
         <Text style={styles.splashTitle}>phiMind.</Text>
-        <ActivityIndicator 
-          size="large" color="#6200EE"/>
+        <ActivityIndicator size="large" color="#6200EE"/>
       </View>
     );
   }
@@ -85,7 +76,13 @@ export default function App() {
     <View style={{ flex: 1, backgroundColor: '#000000' }} onLayout={onLayoutRootView}>
       <NavigationContainer>
         <StatusBar style="light" translucent backgroundColor="transparent" />
-        <TaskRoutes />
+        
+        {/* 🔹 Providers do app inteiro */}
+        <AuthProvider>
+          <FavoritesProvider>
+            <TaskRoutes />
+          </FavoritesProvider>
+        </AuthProvider>
       </NavigationContainer>
     </View>
   );
@@ -108,9 +105,4 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#6200EE', 
   },
-  splashSubtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 20
-  }
 });

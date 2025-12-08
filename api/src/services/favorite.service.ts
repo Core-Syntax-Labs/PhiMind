@@ -9,7 +9,7 @@ interface CreateFavoriteDTO {
 export class FavoriteService {
 
   // salva um favorito no banco
-  static async create(data: { text: string; author: string; userId: number }) {
+  static async create(data: CreateFavoriteDTO) {
     const { text, author, userId } = data;
 
     if (!text || !author || text.trim() === "" || author.trim() === "") {
@@ -55,8 +55,6 @@ export class FavoriteService {
       await prisma.favorite.delete({
         where: { id_favorite: favoriteId },
       });
-
-      return { message: `Favorito ${favoriteId} deletado com sucesso.` };
       
     } catch (error) {
       // 3. Trata erro do Prisma (Registro não encontrado: P2025)

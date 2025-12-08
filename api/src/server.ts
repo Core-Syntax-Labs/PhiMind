@@ -4,12 +4,14 @@ import express from 'express';
 import cors from 'cors';
 import { AuthService } from "./services/auth.service";
 import favoriteRoutes from "./routes/favorite.routes";
+import quoteRoutes from "./routes/quote.routes";
 import { prisma } from './prisma';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/favorites", favoriteRoutes);
+app.use("/quotes", quoteRoutes);
 
 // rota teste
 app.get('/', (req, res) => {

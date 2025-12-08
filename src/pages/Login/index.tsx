@@ -1,3 +1,5 @@
+// src/pages/Login/index.tsx
+
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -14,19 +16,39 @@ import {
   InputContainer
 } from './styles';
 
+//Pega o contexto de autenticação
+import { useAuth } from '../../context/AuthContext';
+
 const TelaDeLogin = () => {
   const navigation = useNavigation();
+
+  const { signIn, loading } = useAuth(); //função que chama /login no back
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !senha) {
       Alert.alert('Atenção', 'Preencha todos os campos.');
       return;
     }
-    console.log('Login com:', { email });
-    Alert.alert('Bem-vindo', `Logado com sucesso!`);
+
+    try {
+      //AQUI é onde o front aciona o back (via AuthContext)
+      await signIn(email, senha);
+
+      // Se chegar aqui sem erro:
+      // - AuthContext já preencheu "user"
+      // - TaskRoutes vai re-renderizar e mostrar o stack logado (Quote/Favorites)
+      // Não precisa dar navigate manual pra Home/Quote aqui.
+    } catch (error: any) {
+      console.log(error?.response?.data || error);
+
+      Alert.alert(
+        'Erro no login',
+        error?.response?.data?.error ?? 'Verifique suas credenciais.'
+      );
+    }
   };
 
   const handleNavigateToRegister = () => {
@@ -39,12 +61,11 @@ const TelaDeLogin = () => {
 
       {/* Input de E-mail */}
       <InputContainer>
-        {/* Ícone vem PRIMEIRO agora */}
         <Feather 
           name="mail" 
           size={20} 
           color="#999" 
-          style={{ marginLeft: 15 }} // Margem para afastar da borda esquerda
+          style={{ marginLeft: 15 }}
         />
         <Input
           placeholder="E-mail"
@@ -69,12 +90,12 @@ const TelaDeLogin = () => {
           value={senha}
           onChangeText={setSenha}
           placeholderTextColor="#999"
-          secureTextEntry={true} // Sempre oculto, sem botão de olho
+          secureTextEntry={true}
         />
       </InputContainer>
 
-      <Button onPress={handleLogin} activeOpacity={0.8}>
-        <ButtonText>Entrar</ButtonText>
+      <Button onPress={handleLogin} activeOpacity={0.8} disabled={loading}>
+        <ButtonText>{loading ? 'Entrando...' : 'Entrar'}</ButtonText>
       </Button>
 
       <LinkButton onPress={handleNavigateToRegister}>

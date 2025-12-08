@@ -25,7 +25,7 @@ const localQuotes = [
   { text: "A felicidade depende de nós mesmos.", author: "Aristóteles" }
 ];
 
-const Home = () => {
+const FavoritesScreen = () => {
   const navigation = useNavigation();
   
   const [quote, setQuote] = useState({ text: '', author: '' });
@@ -102,4 +102,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default FavoritesScreen;
