@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, FlatList } from "react-native";
+import { Feather } from '@expo/vector-icons';
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../database/api";
 
@@ -11,7 +12,9 @@ import {
   Author,
   RemoveButton,
   RemoveText,
+  HeaderBackButton,
 } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 type Favorite = {
   id_favorite: number;
@@ -20,6 +23,7 @@ type Favorite = {
 };
 
 const FavoritesScreen = () => {
+  const navigation = useNavigation();
   const { user } = useAuth();
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [loading, setLoading] = useState(false);
@@ -66,6 +70,12 @@ const FavoritesScreen = () => {
 
   return (
     <Container>
+      {/* BOTÃO DE VOLTAR MANUAL */}
+      <HeaderBackButton onPress={() => navigation.goBack()}>
+        <Feather name="arrow-left" size={24} color="#ffffffff" />
+      </HeaderBackButton>
+
+
       <Title>Minhas citações favoritas</Title>
 
       {loading ? (

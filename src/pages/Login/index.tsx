@@ -13,7 +13,8 @@ import {
   ButtonText,
   LinkButton,
   LinkText,
-  InputContainer
+  InputContainer,
+  HeaderBackButton
 } from './styles';
 
 //Pega o contexto de autenticação
@@ -57,6 +58,11 @@ const TelaDeLogin = () => {
 
   return (
     <Container>
+      {/* BOTÃO DE VOLTAR MANUAL */}
+      <HeaderBackButton onPress={() => navigation.goBack()}>
+        <Feather name="arrow-left" size={24} color="#6200EE" />
+      </HeaderBackButton>
+
       <Title>Entre agora</Title>
 
       {/* Input de E-mail */}

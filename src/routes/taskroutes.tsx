@@ -18,7 +18,7 @@ export default function TaskRoutes() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={TelaDeLogin} options={{ headerShown: false }} />
-        <Stack.Screen name="Cadastro" component={TelaDeCadastro} options={{ title: "Criar conta" }} />
+        <Stack.Screen name="Cadastro" component={TelaDeCadastro} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   }

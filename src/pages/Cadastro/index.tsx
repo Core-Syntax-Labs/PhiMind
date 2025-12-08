@@ -20,7 +20,13 @@ import {
   InputContainer,
   BackButton,
   BackButtonText,
-  ErrorText 
+  ErrorText, 
+  IntroContainer,
+  IntroText,
+  IntroAuthor,
+  QuoteIcon,
+  BackButtonTextColor,
+  HeaderBackButton
 } from './styles';
 
 // Tipagem dos dados que vêm do formulário
@@ -49,6 +55,11 @@ const schema = yup.object({
 
 const TelaDeCadastro = () => {
   const navigation = useNavigation();
+
+  const handleNavigateToLogin = () => {
+    navigation.navigate('Login' as never);
+  };
+
   const [loading, setLoading] = useState(false); // só pra desabilitar botão/enviar 2x
 
   const {
@@ -96,6 +107,20 @@ const TelaDeCadastro = () => {
 
   return (
     <Container>
+      {/* BOTÃO DE VOLTAR MANUAL */}
+      <HeaderBackButton onPress={() => navigation.goBack()}>
+        <Feather name="arrow-left" size={24} color="#6200EE" />
+      </HeaderBackButton>
+
+      {/* Introdução Cadastro */}
+      <IntroContainer>
+        <QuoteIcon name="quote-left" size={24} color="#6200EE" />
+        <IntroText>
+          "Comece agora a explorar as frases dos maiores filósofos do mundo, crie sua conta e escolha suas frases favoritas!"
+        </IntroText>
+        <IntroAuthor>— Equipe PhiMind</IntroAuthor>
+      </IntroContainer>
+      
       <Title>Crie sua conta</Title>
 
       {/* CAMPO NOME */}
@@ -202,8 +227,8 @@ const TelaDeCadastro = () => {
         <ButtonText>{loading ? 'Cadastrando...' : 'Cadastrar'}</ButtonText>
       </Button>
 
-      <BackButton onPress={() => navigation.goBack()}>
-        <BackButtonText>Já se cadastrou? Faça o Login</BackButtonText>
+      <BackButton onPress={handleNavigateToLogin}>
+        <BackButtonText>Já se cadastrou? <BackButtonTextColor>Faça o Login</BackButtonTextColor></BackButtonText>
       </BackButton>
     </Container>
   );

@@ -1,5 +1,21 @@
 import styled from "styled-components/native";
 
+export const HeaderBackButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 25px; 
+  left: 20px; 
+  z-index: 10; 
+  
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #bb86fca4;
+`;
+
+
+
 export const Container = styled.View`
   flex: 1;
   background-color: #050516;

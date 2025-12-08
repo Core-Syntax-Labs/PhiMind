@@ -1,4 +1,60 @@
 import styled from 'styled-components/native';
+import { FontAwesome } from '@expo/vector-icons';
+
+export const HeaderBackButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 25px; 
+  left: 20px; 
+  z-index: 10; 
+  
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #f5f5f5ab;
+`;
+
+
+//  Container para o texto de boas-vindas/citação
+// Ícone de Aspas para a citação
+export const QuoteIcon = styled(FontAwesome)`
+  margin-bottom: 5px;
+  opacity: 0.3; 
+`;
+
+export const IntroContainer = styled.View`
+  width: 100%;
+  margin-bottom: 20px; /* Espaço entre a frase e o Título "Crie sua conta" */
+  padding: 15px;
+  max-width: 350px;
+  background-color: #ffffffff;
+  border-radius: 12px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  max-height: 250px;
+`;
+
+//  O texto estilizado como citação
+export const IntroText = styled.Text`
+  font-family: 'LobsterTwo_400Regular_Italic';
+  font-size: 20px;
+  color: #868686ff;
+  text-align: center;
+  line-height: 26px; 
+`;
+
+//  A assinatura da equipe
+export const IntroAuthor = styled.Text`
+  font-family: 'Montserrat_700Bold';
+  font-size: 14px;
+  color: #6200EE;
+  text-align: right; /* Alinhado à direita como uma assinatura */
+  margin-top: 8px;
+  
+`;
+
+
 
 export const Container = styled.View`
   flex: 1;
@@ -13,8 +69,9 @@ export const Title = styled.Text`
   font-size: 42px;
   font-weight: 700;
   color: #6200EE;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   text-align: center;
+  text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 `;
 
 export const InputContainer = styled.View`
@@ -82,9 +139,15 @@ export const BackButton = styled.TouchableOpacity`
 
 export const BackButtonText = styled.Text`
   color: #666;
-  font-size: 16px;
+  font-size: 14px;
+  margin-top: -10px;
+  font-family: 'Montserrat_700Bold';
+`;
 
-  /* APLICAÇÃO DA FONTE: Montserrat Bold para o link ficar claro */
+export const BackButtonTextColor = styled.Text`
+  color: #6200EE;
+  font-size: 14px;
+  margin-top: -10px;
   font-family: 'Montserrat_700Bold';
 `;
 
@@ -95,7 +158,5 @@ export const ErrorText = styled.Text`
   margin-bottom: 10px;
   margin-left: 5px;
   margin-top: -10px;
-
-  /* APLICAÇÃO DA FONTE: Montserrat Regular para mensagens de erro */
   font-family: 'Montserrat_400Regular';
 `;
