@@ -24,6 +24,7 @@
     "dotenv": "^17.2.3",
     "expo": "~54.0.25",
     "expo-crypto": "^15.0.8",
+    "expo-linear-gradient": "~15.0.8",
     "expo-splash-screen": "~31.0.12",
     "expo-status-bar": "~3.0.8",
     "express": "^5.2.1",

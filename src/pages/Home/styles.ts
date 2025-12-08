@@ -1,13 +1,28 @@
 import styled from 'styled-components/native';
-import { Feather, FontAwesome } from '@expo/vector-icons'; // Adicionei FontAwesome
+import { Feather, FontAwesome } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 // Título do App 
 export const LogoTitle = styled.Text`
-  font-family: 'Montserrat_700Bold'; 
-  font-size: 40px;
+  font-family: 'LobsterTwo_400Regular_Italic'; 
+  font-size: 45px;
   color: #6200EE;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+  span {
+    font-size: 5px;
+  }
+`;
+
+export const RegisteredSymbol = styled.Text`
+  font-size: 14px; 
+  font-family: 'Montserrat_700Bold'; 
+  color: #6200EE;
+  
+  /* Truque para tentar alinhar um pouco mais acima (simulando superscript) */
+  line-height: 18px; 
+  text-align-vertical: top;
 `;
 
 // Frase Filosófica
@@ -26,7 +41,7 @@ export const QuoteAuthor = styled.Text`
   margin-top: 8px;
 `;
 
-// NOVO: Ícone de Aspas para a citação
+// Ícone de Aspas para a citação
 export const QuoteIcon = styled(FontAwesome)`
   margin-bottom: 5px;
   opacity: 0.3; /* Deixa suave */
@@ -38,47 +53,78 @@ export const PrimaryButtonText = styled.Text`
   font-weight: 700;
   color: #fff;
   font-size: 18px;
+  
 `;
 
 export const Container = styled.View`
-  flex: 1;
-  background-color: #FFFFFF;
-  justify-content: space-between;
+  width: 100%;
+  background-color: #ffffff;
   align-items: center;
-  padding: 40px 24px;
+  flex: 1; 
+  justify-content: center; 
+  padding-bottom: 20px; 
 `;
 
 // Pega a largura total da tela do dispositivo
 const { width } = Dimensions.get('window');
 
-export const HeroImage = styled.Image`
-  width: ${width}px; 
+// container relativo para segurar a imagem e o gradiente juntos
+export const HeroContainer = styled.View`
+  width: ${width}px;
   height: 350px;
-  margin-top: -50;
+  margin-top: -50px;
+  position: relative;
+`;
+
+export const HeroImage = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
+
+
+export const BottomFade = styled(LinearGradient)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180px;
+`;
+
+export const TopFade = styled(LinearGradient)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; 
+  height: 50px; 
+  z-index: 1; 
 `;
 
 export const ContentWrapper = styled.View`
   width: 100%;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+
 `;
 
 export const LogoTitleTwo = styled.Text`
   font-size: 20px;
-  font-family: 'Montserrat_700Bold'; 
-  font-weight: 400;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  color: #818080ff;
+  font-family: 'LobsterTwo_400Regular_Italic'; 
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  color: #9c9c9cff;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 `;
 
 export const QuoteContainer = styled.View`
   width: 100%;
+  max-width: 350px;
   padding: 15px;
   align-items: center;
-  background-color: #F9F9F9; /* Fundo sutil para destacar a frase */
+  background-color: #F9F9F9;
   border-radius: 12px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  max-height: 250px; 
 `;
 
 // Spinner de carregamento pré-estilizado
@@ -89,8 +135,9 @@ export const LoadingSpinner = styled.ActivityIndicator.attrs({
 
 export const ButtonContainer = styled.View`
   width: 100%;
-  gap: 15px;
-  margin-bottom: 20px;
+  max-width: 300px;
+  margin-top: -25px;
+  
 `;
 
 export const PrimaryButton = styled.TouchableOpacity`
@@ -108,7 +155,7 @@ export const PrimaryButton = styled.TouchableOpacity`
   elevation: 6;
 `;
 
-// Ícone da Seta (Botão Primário)
+// Ícone da Seta 
 export const ButtonIcon = styled(Feather)`
   margin-left: 10px;
 `;
@@ -127,7 +174,7 @@ export const SecondaryButtonText = styled.Text`
   font-family: 'Montserrat_700Bold';
 `;
 
-// NOVO: Ícone de Login (Botão Secundário)
+// Ícone de Login
 export const SecondaryButtonIcon = styled(Feather)`
   margin-left: 8px;
 `;

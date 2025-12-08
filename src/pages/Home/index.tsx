@@ -19,7 +19,11 @@ import {
   LoadingSpinner, 
   ButtonIcon,
   QuoteIcon,          
-  SecondaryButtonIcon 
+  SecondaryButtonIcon, 
+  RegisteredSymbol,
+  HeroContainer,
+  BottomFade,
+  TopFade
 } from './styles';
 
 const heroImg = require('../../../assets/banner.png');
@@ -64,13 +68,17 @@ const Home = () => {
 
   return (
     <Container>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       
-      <HeroImage source={heroImg} resizeMode="cover" />
+      <HeroContainer>
+        <TopFade colors={['#FFFFFF', 'transparent']} />
+        <HeroImage source={heroImg} resizeMode="cover" />
+        <BottomFade colors={['transparent', '#FFFFFF']} />
+      </HeroContainer>
 
       <ContentWrapper>
-        <LogoTitle>phiMind.</LogoTitle>
-        <LogoTitleTwo>Descubra frases filosoficas diariamente</LogoTitleTwo>
+        <LogoTitle>PhiMind<RegisteredSymbol>®</RegisteredSymbol></LogoTitle>
+        <LogoTitleTwo>Descubra frases filosóficas em um clique!</LogoTitleTwo>
         
         <QuoteContainer>
           {loading ? (
