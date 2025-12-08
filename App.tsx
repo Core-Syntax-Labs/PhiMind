@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import TaskRoutes from './src/routes/taskroutes';
 import * as SplashScreen from 'expo-splash-screen'; 
 import { useCallback, useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'; 
+import { View, Text, ActivityIndicator, StyleSheet, Image } from 'react-native'; 
 
 import { AuthProvider } from './src/context/AuthContext';
 import { FavoritesProvider } from './src/context/FavoriteContext';
@@ -20,6 +20,7 @@ import {
   LobsterTwo_700Bold,
   LobsterTwo_400Regular_Italic 
 } from '@expo-google-fonts/lobster-two';
+import { QuoteIcon } from './src/pages/Home/styles';
 
 // Impede o hide automático
 SplashScreen.preventAutoHideAsync().catch(console.warn);
@@ -66,8 +67,8 @@ export default function App() {
   if (!fontsLoaded || !appIsReady) {
     return (
       <View style={styles.splashContainer}>
-        <Text style={styles.splashTitle}>phiMind.</Text>
-        <ActivityIndicator size="large" color="#6200EE"/>
+        <QuoteIcon name="quote-left" size={24} color="#6200EE" />
+        <Text style={styles.splashText}>PhiMind</Text>
       </View>
     );
   }
@@ -97,12 +98,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 20 
   },
-  splashTitle: {
-    fontFamily: 'Montserrat_900Black',
-    textShadowColor: 'rgba(0, 0, 0, 0.3)', 
-    textShadowOffset: { width: 2, height: 2 }, 
-    textShadowRadius: 4, 
+   splashText: {
+    fontFamily: 'LobsterTwo_400Regular_Italic',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+    marginTop: -15,
     fontSize: 40,
-    color: '#6200EE', 
-  },
+    color: '#6200EE',
+  }
 });

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-
+import { FontAwesome } from '@expo/vector-icons';
 
 export const HeaderBackButton = styled.TouchableOpacity`
   position: absolute;
@@ -25,12 +25,20 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 32px;
-  font-weight: 800;
+  font-family: 'LobsterTwo_700Bold'; 
+  font-size: 42px;
+  font-weight: 700;
   color: #6200EE;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   text-align: center;
+  text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 `;
+
+export const QuoteIcon = styled(FontAwesome)`
+  margin-bottom: 5px;
+  opacity: 0.3; 
+`;
+
 
 export const InputContainer = styled.View`
   width: 100%;
@@ -80,8 +88,16 @@ export const LinkButton = styled.TouchableOpacity`
   padding: 10px;
 `;
 
-export const LinkText = styled.Text`
+
+export const BackButtonText = styled.Text`
+  color: #666;
+  font-size: 14px;
+  font-family: 'Montserrat_700Bold';
+`;
+
+export const BackButtonTextColor = styled.Text`
   color: #6200EE;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  margin-top: -10px;
+  font-family: 'Montserrat_700Bold';
 `;
