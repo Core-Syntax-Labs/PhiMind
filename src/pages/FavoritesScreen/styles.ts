@@ -11,14 +11,14 @@ export const HeaderBackButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background-color: #bb86fca4;
+  background-color: #fcfcfca4;
 `;
 
 
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #2b2a2aff;
+  background-color: #440591a4;
   padding: 24px;
   padding-top: 60px; /* Espaço para o HeaderBackButton */
 `;
@@ -62,7 +62,7 @@ export const Card = styled.View`
 export const TextPT = styled.Text`
   font-family: 'LobsterTwo_400Regular_Italic'; 
   font-size: 20px;
-  color: #f6f3f3ff;
+  color: #7a7878ff;
   line-height: 26px;
   margin-bottom: 10px;
 `;

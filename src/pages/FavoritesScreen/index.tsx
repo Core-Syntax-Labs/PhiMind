@@ -71,7 +71,7 @@ const FavoritesScreen = () => {
   return (
     <Container>
       <HeaderBackButton onPress={() => navigation.goBack()}>
-        <Feather name="arrow-left" size={24} color="#6200EE" />
+        <Feather name="arrow-left" size={24} color="#39097cff" />
       </HeaderBackButton>
 
       {/* Título */}
