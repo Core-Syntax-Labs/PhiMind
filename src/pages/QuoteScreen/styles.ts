@@ -170,6 +170,20 @@ export const LinkText = styled.Text`
   font-family: Montserrat_700Bold;
 `;
 
+export const EmptyTitle = styled.Text`
+  color: #d1d5db;
+  font-size: 15px;
+  margin-bottom: 6px;
+  text-align: center;
+`;
+
+export const EmptySubtitle = styled.Text`
+  color: #9aa0b2;
+  font-size: 13px;
+  text-align: center;
+`;
+
+
 /* SKELETON */
 export const SkeletonBlock = styled.View`
   background-color: rgba(255, 255, 255, 0.03);
@@ -183,17 +197,4 @@ export const EmptyContainer = styled.View`
   align-items: center;
   justify-content: center;
   padding: 20px;
-`;
-
-export const EmptyTitle = styled.Text`
-  color: #d1d5db;
-  font-size: 15px;
-  margin-bottom: 6px;
-  text-align: center;
-`;
-
-export const EmptySubtitle = styled.Text`
-  color: #9aa0b2;
-  font-size: 13px;
-  text-align: center;
 `;

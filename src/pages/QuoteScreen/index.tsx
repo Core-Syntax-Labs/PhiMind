@@ -129,7 +129,7 @@ const QuoteScreen: React.FC = () => {
       <Container>
         <Top>
           <LogoWrapper>
-            <LogoText> </LogoText>
+            <LogoText>📜</LogoText>
           </LogoWrapper>
           <MainTitle>Gerador de Frases IA</MainTitle>
           <Subtitle>Crie frases únicas de forma fácil e prática.</Subtitle>
@@ -160,8 +160,11 @@ const QuoteScreen: React.FC = () => {
   return (
     <Container>
       <Top>
-        <MainTitle>Gerador de Frases Filosoficas</MainTitle>
-        <Subtitle> Busque citações de filosofos famosos para clarerar seu dia </Subtitle>
+        <LogoWrapper>
+          <LogoText>📜</LogoText>
+        </LogoWrapper>
+        <MainTitle>Gerador de Frases Filosoficas </MainTitle>
+        <Subtitle> Veja frases de filosofos famosos para clarar seu dia </Subtitle>
       </Top>
 
       {loading && renderSkeleton()}
