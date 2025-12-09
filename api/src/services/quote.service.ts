@@ -7,7 +7,7 @@ const insecureAgent = new https.Agent({
 
 export class QuoteService {
   static async getRandomPhilosophyQuote() {
-    const response = await axios.get("https://api.quotable.io/random", {
+    const response = await axios.get("http://api.quotable.io/random", {
       params: {
         tags: "wisdom|philosophy",
       },
