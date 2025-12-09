@@ -4,6 +4,12 @@ import { Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 // Título do App 
+export const LogoIcon = styled(FontAwesome)`
+  margin-left: 5px;
+  width: 30px;
+  color: "#3c048bff"
+`;
+
 export const LogoTitle = styled.Text`
   font-family: 'LobsterTwo_400Regular_Italic'; 
   font-size: 45px;
@@ -15,15 +21,6 @@ export const LogoTitle = styled.Text`
   }
 `;
 
-export const RegisteredSymbol = styled.Text`
-  font-size: 14px; 
-  font-family: 'Montserrat_700Bold'; 
-  color: #6200EE;
-  
-  /* Truque para tentar alinhar um pouco mais acima (simulando superscript) */
-  line-height: 18px; 
-  text-align-vertical: top;
-`;
 
 // Frase Filosófica
 export const QuoteText = styled.Text`
@@ -44,7 +41,7 @@ export const QuoteAuthor = styled.Text`
 // Ícone de Aspas para a citação
 export const QuoteIcon = styled(FontAwesome)`
   margin-bottom: 5px;
-  opacity: 0.3; /* Deixa suave */
+  opacity: 0.3; 
 `;
 
 // Botões 
@@ -170,7 +167,7 @@ export const SecondaryButton = styled.TouchableOpacity`
 
 export const SecondaryButtonText = styled.Text`
   color: #1A1A1A;
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Montserrat_700Bold';
 `;
 

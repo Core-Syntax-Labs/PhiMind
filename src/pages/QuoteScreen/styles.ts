@@ -85,5 +85,6 @@ export const GoFavorites = styled.TouchableOpacity`
 export const GoFavoritesText = styled.Text`
   color: #bb86fc;
   font-size: 15px;
+  font-family: Montserrat_700Bold;
   text-decoration: underline;
 `;

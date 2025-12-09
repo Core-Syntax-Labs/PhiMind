@@ -12,8 +12,11 @@ import {
   Button, 
   ButtonText,
   LinkButton,
-  LinkText,
-  InputContainer
+  InputContainer,
+  HeaderBackButton,
+  BackButtonText,
+  BackButtonTextColor,
+  QuoteIcon
 } from './styles';
 
 //Pega o contexto de autenticação
@@ -57,6 +60,12 @@ const TelaDeLogin = () => {
 
   return (
     <Container>
+      {/* BOTÃO DE VOLTAR MANUAL */}
+      <HeaderBackButton onPress={() => navigation.goBack()}>
+        <Feather name="arrow-left" size={24} color="#6200EE" />
+      </HeaderBackButton>
+
+      <QuoteIcon name="quote-left" size={24} color="#6200EE" />
       <Title>Entre agora</Title>
 
       {/* Input de E-mail */}
@@ -99,7 +108,7 @@ const TelaDeLogin = () => {
       </Button>
 
       <LinkButton onPress={handleNavigateToRegister}>
-        <LinkText>Não tem uma conta? Cadastre-se</LinkText>
+        <BackButtonText>Não tem uma conta? <BackButtonTextColor>Cadastre-se</BackButtonTextColor></BackButtonText>
       </LinkButton>
 
     </Container>

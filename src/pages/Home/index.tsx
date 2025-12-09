@@ -20,10 +20,10 @@ import {
   ButtonIcon,
   QuoteIcon,          
   SecondaryButtonIcon, 
-  RegisteredSymbol,
   HeroContainer,
   BottomFade,
-  TopFade
+  TopFade,
+  LogoIcon
 } from './styles';
 
 const heroImg = require('../../../assets/banner.png');
@@ -43,10 +43,32 @@ const Home = () => {
   async function fetchQuote() {
     try {
       setLoading(true);
-      const response = await fetch('https://stoic-quotes.com/api/quote'); 
-      const data = await response.json();
-      setQuote({ text: data.text, author: data.author });
+      
+      let attempts = 0;
+      let foundShortQuote = false;
+      const MAX_LENGTH = 120; //  limite de caracteres desejado
+      const MAX_ATTEMPTS = 5; // Tenta buscar 5 vezes antes de desistir e usar local
+
+      while (attempts < MAX_ATTEMPTS && !foundShortQuote) {
+        const response = await fetch('https://stoic-quotes.com/api/quote');
+        const data = await response.json();
+
+        // Verifica se o tamanho do texto é menor ou igual ao limite
+        if (data.text.length <= MAX_LENGTH) {
+          setQuote({ text: data.text, author: data.author });
+          foundShortQuote = true; // Encerra o loop
+        }
+        
+        attempts++;
+      }
+
+      // Se após 5 tentativas não achar uma curta, lança erro para cair no catch
+      if (!foundShortQuote) {
+        throw new Error('Nenhuma frase curta encontrada.');
+      }
+
     } catch (error) {
+      // Se der erro na API ou se todas as frases vierem longas, usa as locais
       const randomLocal = localQuotes[Math.floor(Math.random() * localQuotes.length)];
       setQuote(randomLocal);
     } finally {
@@ -77,7 +99,10 @@ const Home = () => {
       </HeroContainer>
 
       <ContentWrapper>
-        <LogoTitle>PhiMind<RegisteredSymbol>®</RegisteredSymbol></LogoTitle>
+        <LogoTitle>
+            PhiMind 
+          <LogoIcon name="quote-left"/>
+        </LogoTitle>
         <LogoTitleTwo>Descubra frases filosóficas em um clique!</LogoTitleTwo>
         
         <QuoteContainer>

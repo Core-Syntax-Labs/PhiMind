@@ -1,15 +1,8 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: #2b2a2aff;
-  padding: 24px;
-  padding-top: 60px; /* Espaço para o HeaderBackButton */
-`;
-
 export const HeaderBackButton = styled.TouchableOpacity`
   position: absolute;
-  top: 50px; 
+  top: 25px; 
   left: 20px; 
   z-index: 10; 
   
@@ -18,8 +11,19 @@ export const HeaderBackButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background-color: #F5F5F5;
+  background-color: #bb86fca4;
 `;
+
+
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #2b2a2aff;
+  padding: 24px;
+  padding-top: 60px; /* Espaço para o HeaderBackButton */
+`;
+
+
 
 // Container para alinhar Título e Ícone lado a lado
 export const TitleContainer = styled.View`
