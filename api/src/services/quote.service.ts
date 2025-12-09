@@ -1,32 +1,44 @@
 import axios from "axios";
-import https from "https";
-
-const insecureAgent = new https.Agent({
-  rejectUnauthorized: false, // ⚠ IGNORA certificado inválido/expirado (apenas DEV)
-});
+import { localQuotes } from "../data/localQuotes";
 
 export class QuoteService {
   static async getRandomPhilosophyQuote() {
-    const response = await axios.get("http://api.quotable.io/random", {
-      params: {
-        tags: "wisdom|philosophy",
-      },
-      httpsAgent: insecureAgent, // agent "relaxado" pra deixar de barrar por certificação inválida
-    });
+    // 1) TENTA API EXTERNA
+    try {
+      const response = await axios.get("https://zenquotes.io/api/random");
+      const data = response.data[0];
 
-    const data = response.data;
+      return {
+        text_en: data.q,
+        text_pt: data.q,
+        author: data.a,
+        source: "zenquotes",
+      };
+    } catch (error) {
+      console.error("Erro na API externa:", error);
+    }
 
-    const originalText = data.content;
-    const originalAuthor = data.author;
+    //2) TENTA LISTA LOCAL
+    try {
+      const randomIndex = Math.floor(Math.random() * localQuotes.length);
+      const quote = localQuotes[randomIndex];
 
-    // Por enquanto, sem tradução automática
-    const translatedText = originalText;
+      return {
+        text_en: quote.text,
+        text_pt: quote.text,
+        author: quote.author,
+        source: "local-list",
+      };
+    } catch (error) {
+      console.error("Erro ao buscar citação local:", error);
+    }
 
+    // 3) FALLBACK FINAL (NUNCA FALHA)
     return {
-      text_en: originalText,
-      text_pt: translatedText,
-      author: originalAuthor,
-      source: "quotable",
+      text_en: "A vida é uma obra em construção.",
+      text_pt: "A vida é uma obra em construção.",
+      author: "Desconhecido",
+      source: "fallback",
     };
   }
 }
